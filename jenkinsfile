@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/your-repository.git'
+            }
+        }
+        stage('User Choice') {
+            steps {
+                script {
+                    // Ask the user which script to run
+                    def userInput = input(
+                        message: 'Choose which script to execute:',
+                        parameters: [
+                            choice(name: 'SCRIPT', choices: 'Python\nBash', description: 'Select Python or Bash')
+                        ]
+                    )
+                    // Save user input in an environment variable
+                    env.USER_CHOICE = userInput
+                }
+            }
+        }
+        stage('Execute Script') {
+            steps {
+                script {
+                    // Execute based on user input
+                    if (env.USER_CHOICE == 'Python') {
+                        sh '''
+                        python3 -m venv venv
+                        source venv/bin/activate
+                        pip install -r requirements.txt
+                        python azure_vm_manager.py
+                        '''
+                    } else if (env.USER_CHOICE == 'Bash') {
+                        sh '''
+                        chmod +x azure_vm_manager.sh
+                        ./azure_vm_manager.sh
+                        '''
+                    } else {
+                        echo "Invalid choice. No script executed."
+                    }
+                }
+            }
+        }
+    }
+}
