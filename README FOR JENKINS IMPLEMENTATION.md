@@ -129,9 +129,9 @@ az login
 
 ##### Running the Pipeline in Production
 
-###### Trigger the Pipeline:
-
+##Trigger the Pipeline:
 ### Go to the Jenkins dashboard, select the pipeline, and click Build Now.
+
 ##### Interactive Script Selection:
 ##### During execution, Jenkins will prompt you to select either the Python or Bash script.
 
