@@ -1,5 +1,5 @@
 
-# Azure Virtual Machine Manager
+# Azure Virtual Machine Automation Project
 
 ## Overview
 
